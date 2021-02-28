@@ -8,8 +8,6 @@ void main()
 	  int score = 0;
 	  int lives = 3;
 	  int d = 0;
-
-
 start:
 	  clrscr();
 	  gotoxy(34,3);
@@ -27,40 +25,35 @@ start:
 	  cprintf("*");
 	  gotoxy(bx-2,by);
 	  cprintf("*****");
-
-	  if(kbhit())
+		 if(kbhit())
 	  {
 		    ch = getch();
 		    switch(ch)
 		    {
-
-			     case 'a':
-			     bx--;
-			     break;
-
-			     case 'd':
-			     bx++;
-			     break;
-
-			     case 'x':
-			     exit(0);
-			     break;
+		     case 'a':
+		     bx--;
+		     break;
+		     case 'd':
+		     bx++;
+		     break;
+		     case 'x':
+		     exit(0);
+		     break;
 		      }
 	   }
 	   cy++;
 
-	   if(cy == 25)
+		if(cy == 25)
 	   {
 		  d = cx - bx;
 		  if(-1 <= d && d <=1)
-
-		  {
-
-			 score++;
-
+{
+		score++;
+		sound(100);
+		delay(500);
+		nosound();
 		  }
-
-		  else
+			else
 		  {
 			 lives--;
 			 if(lives == 0)
@@ -72,7 +65,6 @@ start:
 				gotoxy(29,14);
 				textcolor(BLUE);
 				cprintf("Press any key to exit");
-
 				getch();
 				exit(0);
 			  }
@@ -82,12 +74,6 @@ start:
 		  cy = 1;
 		  cx = rand()%20 +1;
 	}
-
-
-
-	delay(100);
-
+delay(150);
 goto start;
-
-
 }
