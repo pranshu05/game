@@ -6,10 +6,16 @@ void main()
 	  int cx = 3, cy = 1,bx = 6,by = 25;
 	  char ch;
 	  int score = 0;
-	  int lives = 3;
+	  int lives = 5;
+	  int level = 1;
+	  int random= 20;
+	  int limit = 5;
 	  int d = 0;
 start:
 	  clrscr();
+	  gotoxy(34,1);
+	  textcolor(GREEN);
+	  cprintf("Level: %d",level);
 	  gotoxy(34,3);
 	  textcolor(GREEN);
 	  cprintf("Score: %d",score);
@@ -25,37 +31,54 @@ start:
 	  cprintf("*");
 	  gotoxy(bx-2,by);
 	  cprintf("*****");
-		 if(kbhit())
+	  if(kbhit())
 	  {
 		    ch = getch();
 		    switch(ch)
 		    {
-		     case 'a':
-		     bx--;
-		     break;
-		     case 'd':
-		     bx++;
-		     break;
-		     case 'x':
-		     exit(0);
-		     break;
+
+			     case 'a':
+			     bx--;
+			     break;
+
+			     case 'd':
+			     bx++;
+			     break;
+
+			     case 'x':
+			     exit(0);
+			     break;
 		      }
 	   }
 	   cy++;
-
-		if(cy == 25)
+	   if(cy == 25)
 	   {
 		  d = cx - bx;
 		  if(-1 <= d && d <=1)
-{
-		score++;
-		sound(100);
-		delay(500);
-		nosound();
+		  {
+			 sound(600);
+			 delay(300);
+			 nosound();
+			 score++;
+			 if(score == limit)
+			 {
+			 sound(400);
+			 delay(800);
+			 score = 0;
+			 level++;
+			 random++;
+			 lives = 5;
+			 limit++;
+			  }
 		  }
-			else
+		  else
 		  {
 			 lives--;
+			 sound(100);
+			 delay(200);
+			 sound(200);
+			 delay(200);
+			 nosound();
 			 if(lives == 0)
 			 {
 				clrscr();
@@ -68,12 +91,18 @@ start:
 				getch();
 				exit(0);
 			  }
-
+			  if(level == 81)
+			  {
+			  clrscr();
+			  gotoxy(25,13);
+			  textcolor(BLUE);
+			  cprintf("CONGRATULATIONS GAME OVER");
+			  getch();
+			}
 		  }
-
 		  cy = 1;
-		  cx = rand()%20 +1;
+		  cx = rand()%random +1;
 	}
-delay(150);
+	delay(150);
 goto start;
 }
